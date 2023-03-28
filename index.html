@@ -73,8 +73,7 @@
             // Ground
             var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
             groundMaterial.diffuseTexture = new BABYLON.Texture("https://dl.dropbox.com/s/o4sr3kvcwxl693f/%EC%9D%B8%EC%99%95%EC%82%B0.png", scene);
-            groundMaterial.diffuseTexture = new BABYLON.Texture("https://dl.dropbox.com/s/1bgheadtdc1lu2n/%EC%9D%B8%EC%99%95%EC%82%B0%ED%95%A9%EC%84%B1%EB%B3%B8.png", scene);
-        
+         
             var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "https://dl.dropbox.com/s/yjz48qxozgf3ief/height%20map.png", 200, 200, 250, 0, 25, scene, false);
             ground.material = groundMaterial;
         
@@ -93,6 +92,34 @@
             skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
             skyboxMaterial.disableLighting = true;
             skybox.material = skyboxMaterial;
+        
+            var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+        
+            var button = BABYLON.GUI.Button.CreateSimpleButton("but", "진경산수화");
+            button.width = 0.2;
+            button.height = "40px";
+            button.color = "white";
+            button.top= "250px";
+            button.left= "250px";
+            button.background = "blue";
+            advancedTexture.addControl(button);    
+        
+            var button1 = BABYLON.GUI.Button.CreateSimpleButton("but1", "위성지도");
+            button1.width = 0.2;
+            button1.height = "40px";
+            button1.color = "white";
+            button1.top= "300px";
+            button1.left= "250px";
+            button1.background = "green";
+            advancedTexture.addControl(button1);   
+        
+            button.onPointerClickObservable.add(() => {
+                groundMaterial.diffuseTexture = new BABYLON.Texture("https://dl.dropbox.com/s/1bgheadtdc1lu2n/%EC%9D%B8%EC%99%95%EC%82%B0%ED%95%A9%EC%84%B1%EB%B3%B8.png", scene);
+            });
+        
+            button1.onPointerClickObservable.add(() => {
+                groundMaterial.diffuseTexture = new BABYLON.Texture("https://dl.dropbox.com/s/o4sr3kvcwxl693f/%EC%9D%B8%EC%99%95%EC%82%B0.png", scene);
+            });
         
             //Sun animation
             scene.registerBeforeRender(function () {
